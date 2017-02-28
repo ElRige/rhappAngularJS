@@ -1,0 +1,9 @@
+{
+  "name": "rhapp",
+  "description": "rh app",
+  "dependencies": {
+    "angular": "1.6.x",
+    "bootstrap": "^3.3.7",
+    "lodash": "^4.17.4"
+  }
+}
