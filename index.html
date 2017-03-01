@@ -14,38 +14,50 @@
     <!-- endinject -->
 </head>
 
-<body ng-app="rhapp">
+<body ng-app="rhapp" ng-controller="RootCtrl">
     <div class="container">
         <!-- Static navbar -->
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                        aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Bank Back Office</a>
+                        </button>
+                        <a class="navbar-brand" href="#">Bank Back Office</a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="/home">Home</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/news">News</a></li>
+                        <li class="active"><a href="/home">{{'HOME' | translate }}</a></li>
+                        <li><a href="/about">{{'ABOUT' | translate }}</a></li>
+                        <li><a href="/news">{{'NEWS' | translate }}</a></li>
                     </ul>
                 </div>
                 <!--/.nav-collapse -->
             </div>
             <!--/.container-fluid -->
         </nav>
+
+        <div class="btn-group pull-right" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" ng-repeat="locale in customLocales" ng-click="changeLocales(locale.id)">
+                {{locale.name}}
+            </button>
+        </div>
+
         <!-- Main component for a primary marketing message or call to action -->
         <div class="jumbotron">
-            
-            <div ng-view></div>
-
+            <div ui-view></div>
         </div>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            Please, check the <a ui-sref="about">about</a> page for more information
+        </div>
+    </footer>
     <!-- /container -->
     <!-- inject:js -->
     <script src="/scripts/bower.js"></script>

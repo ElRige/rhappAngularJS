@@ -1,0 +1,27 @@
+<div>
+    <div>
+        Fistname : {{hdCtrl.anApplication.firstname}}
+    </div>
+    <div>
+        Lastname : {{hdCtrl.anApplication.lastname}}
+    </div>
+    <div>
+        Asked salary : {{hdCtrl.anApplication.askedSalary}}
+    </div>
+    <div>
+        <div ng-repeat="xp in hdCtrl.anApplication.experiences">
+            <div>
+                From : {{xp.from}}
+            </div>
+            <div>
+                To : {{xp.to}}
+            </div>
+            <div>
+                Description : {{xp.description}}
+            </div>
+        </div>
+    </div>
+    <div>
+        <a ui-sref="homeEdit({id:hdCtrl.anApplication.id})" class="btn btn-lg btn-primary">Update application</a>
+    </div>
+</div>

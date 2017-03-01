@@ -1,10 +1,8 @@
 <div>
-    {{hCtrl.test}}
+    <a ui-sref="homeNew" class="btn btn-lg btn-primary">Add application</a>
 </div>
 
-<button type="button" ng-click="hCtrl.addApplication()">Add</button>
-
-<a href="#" class="list-group-item" ng-repeat="anApplication in hCtrl.applications">
+<a href="#" class="list-group-item" ng-repeat="anApplication in hCtrl.applications" ui-sref="homeDetail({id:anApplication.id})">
     <h4 class="list-group-item-heading">{{anApplication.firstname}} {{anApplication.lastname}}</h4>
     <p class="list-group-item-text">{{anApplication.askedSalary | currency}}</p>
 </a>
