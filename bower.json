@@ -1,9 +1,12 @@
 {
-  "name": "rhapp",
+  "name": "rh-app",
   "description": "rh app",
   "dependencies": {
     "angular": "1.6.x",
-    "bootstrap": "^3.3.7",
-    "lodash": "^4.17.4"
+    "bootstrap": "~3.1.1",
+    "lodash": "latest",
+
+    "angular-route": "1.6.x"
   }
 }
+
