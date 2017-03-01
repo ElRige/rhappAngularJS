@@ -52,7 +52,7 @@ var url = require("url");
 // les fichiers JS, les concatène, "minifie"
 // et les "uflifie". On ajoute également
 // l'extension ".min.js"
-gulp.task('js',['generateconfigfile'], function() {
+gulp.task('js', ['generateconfigfile'], function () {
     //return gulp.src(['src/**/*.js', '!src/**/*.spec.js'])
     return gulp.src(['src/**/*.module.js', 'src/**/*.js', '!src/**/*.spec.js'])
         .pipe(jshint())
@@ -63,7 +63,7 @@ gulp.task('js',['generateconfigfile'], function() {
         .pipe(ngAnnotate({
             add: true
         }))
-        
+
         //.pipe(uglify())
         .pipe(rename({
             extname: '.min.js'
@@ -73,23 +73,23 @@ gulp.task('js',['generateconfigfile'], function() {
 });
 
 gulp.task('wiredep', function () {
-  gulp.src('./index.html')
-    .pipe(wiredep({
-        directory: './bower_components'
-    }))
-    .pipe(gulp.dest('.'));
+    gulp.src('./index.html')
+        .pipe(wiredep({
+            directory: './bower_components'
+        }))
+        .pipe(gulp.dest('.'));
 });
 
-gulp.task('generatepartials', function(){
+gulp.task('generatepartials', function () {
     gulp.src("src/**/*.part.html")
-    .pipe(ngHtml2Js({
-        moduleName: "cachedpartials",
-        prefix: "src/"
-    }))
-    .pipe(uglify())
-    .pipe(concat("partials.min.js"))
-    //.pipe(uglify())
-    .pipe(gulp.dest('./scripts/'));
+        .pipe(ngHtml2Js({
+            moduleName: "cachedpartials",
+            prefix: "src/"
+        }))
+        .pipe(uglify())
+        .pipe(concat("partials.min.js"))
+        //.pipe(uglify())
+        .pipe(gulp.dest('./scripts/'));
 });
 
 // Tâche d'écoute sur les fichiers JS. 
@@ -98,13 +98,13 @@ gulp.task('js-watch', ['js'], browserSync.reload);
 
 // Tâche permettant d'injecter les "css" et "js" automatiquement
 // source: http://stackoverflow.com/a/37657188/644669
-gulp.task('bowerization', function(){
+gulp.task('bowerization', function () {
     var target = gulp.src('./html/index.html');
-    var js = gulp.src(wiredep({directory: './bower_components'}).js);
+    var js = gulp.src(wiredep({ directory: './bower_components' }).js);
     var css = gulp.src(wiredep().css);
 
     return target
-        .pipe(inject(js.pipe(concat('bower.js')).pipe(uglify()).pipe(gulp.dest('./scripts'))))
+        .pipe(inject(js.pipe(concat('bower.js'))/*.pipe(uglify())*/.pipe(gulp.dest('./scripts'))))
         .pipe(inject(css.pipe(concat('bower.css')).pipe(gulp.dest('./styles'))))
         .pipe(gulp.dest('./html'));
 });
@@ -113,33 +113,33 @@ gulp.task('bowerization', function(){
 // Elle appelle également la tâche "js-watch" qui à son tour
 // appelle la tâche "js"
 
-function generateConfigFile(environment){
-    gulp.src('config/' + environment +'.json')
-    .pipe(gulpNgConfig('bankapp', {createModule: false}))
-    .pipe(rename('configuration.js'))
-    .pipe(gulp.dest('src/generated'));
+function generateConfigFile(environment) {
+    gulp.src('config/' + environment + '.json')
+        .pipe(gulpNgConfig('bankapp', { createModule: false }))
+        .pipe(rename('configuration.js'))
+        .pipe(gulp.dest('src/generated'));
 }
 
-gulp.task('generateconfigfile', function(){
-    if (process.env.NODE_ENV === 'production'){
+gulp.task('generateconfigfile', function () {
+    if (process.env.NODE_ENV === 'production') {
         generateConfigFile('prod');
     } else {
         generateConfigFile('dev');
     }
 });
 
-gulp.task('dist', ['generatepartials','bowerization','js'], function() {
+gulp.task('dist', ['generatepartials', 'bowerization', 'js'], function () {
 
 });
 
-gulp.task('serve', ['generatepartials','bowerization','js'], function() {
+gulp.task('serve', ['generatepartials', 'bowerization', 'js'], function () {
     generateConfigFile('dev');
     var proxyOptions = url.parse("http://localhost:8080/rh-api/v1/applications");
     proxyOptions.route = "/rh-api/v1/applications";
-    browserSync.init(null,{
+    browserSync.init(null, {
         server: {
             baseDir: "./",
-            middleware: [ historyApiFallback(), proxy(proxyOptions) ]
+            middleware: [historyApiFallback(), proxy(proxyOptions)]
         }
     });
     gulp.watch('src/**/*.js', ['js-watch']);

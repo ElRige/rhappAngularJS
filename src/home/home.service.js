@@ -1,7 +1,7 @@
-(function() {
+(function () {
     const app = angular.module('rhapp.home');
 
-    app.factory('homeService', function($http) {
+    app.factory('homeService', function ($http) {
 
         function getApplications() {
             let config = {
@@ -29,7 +29,6 @@
 
             return $http(config);
         }
-
 
         function addApplication(anApplication) {
             let config = {
